@@ -1,9 +1,9 @@
 {
     "displayName": "Oblivion",
-    "description": "Mindustry Java mod sequal of the Cataclysm mod.",
-    "version": "v1.0",
-    "minGameVersion": "146",
-    "author": "JJ & Cewwi",
+    "description": "Uber Java mod.",
+    "version": "Pre Alpha. Pure experimentation",
+    "minGameVersion": "154",
+    "author": "JJ",
     "java": true,
-    "main": "template.Grounded"
+    "main": "oblivion.OblivionMod"
 }
