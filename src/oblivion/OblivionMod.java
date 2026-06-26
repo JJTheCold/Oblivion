@@ -1,19 +1,9 @@
 package oblivion;
 
-import mindustry.mod.*;
-import template.gen.*;
-
-public class ModTemplate extends Mod{
-    @Override
-    public void loadContent(){
-        EntityRegistry.register();
-    }
-}
-package oblivion;
-
 import arc.Events;
 import arc.math.Mathf;
 import arc.util.Log;
+import oblivion.content.OblivionUnitTypes;
 import oblivion.entities.EntityRegister;
 import mindustry.entities.Effect;
 import mindustry.entities.bullet.BulletType;
@@ -34,6 +24,5 @@ public class OblivionMod extends Mod{
         //EntityRegistry.register();
         EntityRegister.load();
         OblivionUnitTypes.load();
-        Utils.init();
     }
 }

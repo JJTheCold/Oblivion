@@ -9,9 +9,8 @@ import arc.util.Interval;
 import arc.util.Time;
 import arc.util.io.Reads;
 import arc.util.io.Writes;
-import exogenesis.content.ExoFx;
-import exogenesis.content.ExoSounds;
-import exogenesis.entities.EntityRegister;
+import oblivion.content.OblivionFx;
+import oblivion.entities.EntityRegister;
 import mindustry.Vars;
 import mindustry.ai.types.CommandAI;
 import mindustry.audio.SoundLoop;
@@ -33,7 +32,7 @@ import java.nio.FloatBuffer;
 
 import static mindustry.Vars.tilesize;
 
-public class Spawner extends ExoBaseEntity implements Syncc, Timedc, Rotc{
+public class Spawner extends OblivionBaseEntity implements Syncc, Timedc, Rotc{
 	public Team team = Team.derelict;
 	public UnitType type = UnitTypes.alpha;
 	public float time = 0, lifetime;
@@ -92,24 +91,6 @@ public class Spawner extends ExoBaseEntity implements Syncc, Timedc, Rotc{
 	}
 
 	@Override
-	public void add(){
-		super.add();
-		Groups.sync.add(this);
-
-		ExoFx.spawnWave.at(x, y, drawSize * 1.1f, team.color);
-	}
-
-	@Override
-	public void afterReadAll() {
-
-	}
-
-	@Override
-	public void beforeWrite() {
-
-	}
-
-	@Override
 	public void remove(){
 		super.remove();
 		Groups.sync.remove(this);
@@ -132,29 +113,8 @@ public class Spawner extends ExoBaseEntity implements Syncc, Timedc, Rotc{
 
 		if(time > lifetime){
 			dump();
-			effect();
 			remove();
 		}
-	}
-
-	public void effect(){
-		Effect.shake(type.hitSize / 3f, type.hitSize / 4f, toSpawn);
-		ExoSounds.energyBolt.at(toSpawn.x, toSpawn.y);
-		if(type.flying){
-			ExoFx.jumpTrail.at(toSpawn.x, toSpawn.y, rotation(), team.color, type);
-			toSpawn.apply(StatusEffects.slow, ExoFx.jumpTrail.lifetime);
-		}else{
-			ExoFx.singleSpark.at(x, y, type.hitSize, team.color);
-			Fx.unitSpawn.at(toSpawn.x, toSpawn.y, rotation(), type);
-			Time.run(Fx.unitSpawn.lifetime, () -> {
-				for(int j = 0; j < 3; j++){
-					Time.run(j * 8, () -> Fx.spawn.at(toSpawn));
-				}
-				ExoFx.spawnGround.at(toSpawn.x, toSpawn.y, type.hitSize / tilesize * 3, team.color);
-				ExoFx.circle.at(toSpawn.x, toSpawn.y, type.hitSize * 4, team.color);
-			});
-		}
-
 	}
 
 	public void dump(){
@@ -254,6 +214,11 @@ public class Spawner extends ExoBaseEntity implements Syncc, Timedc, Rotc{
 		commandPos = TypeIO.readVec2(read);
 
 		afterRead();
+	}
+
+	@Override
+	public boolean isNull() {
+		return false;
 	}
 
 	@Override
