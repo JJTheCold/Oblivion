@@ -11,6 +11,7 @@ import mindustry.game.EventType;
 import mindustry.gen.Unit;
 import mindustry.mod.Mod;
 import mindustry.mod.Mods;
+import oblivion.util.Utils;
 //import exogenesis.gen.*;
 
 import static arc.Core.app;
@@ -21,7 +22,8 @@ public class OblivionMod extends Mod{
 
     @Override
     public void loadContent(){
-        //EntityRegistry.register();
+        EntityRegister.load();
+        Utils.init();
         EntityRegister.load();
         OblivionUnitTypes.load();
     }
